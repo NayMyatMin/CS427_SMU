@@ -1,5 +1,5 @@
 
-# CS427-SMU: AI Safety Course 
+# CS427-SMU: AI Safety Course
 
 ## Overview
 
@@ -7,9 +7,17 @@ This repository contains code and exercises for the CS427 AI Safety course at SM
 
 ## Prerequisites
 
-Before you begin, ensure you have Python installed on your system. You will also need to set up a virtual environment to manage the required dependencies.
+Before you begin, ensure you have Python installed on your system in case you need to run the code locally. However, the primary environment for running the exercises is Google Colab.
 
-## Installation
+## Running Exercises in Google Colab
+
+1. Open the Colab notebook for the specific exercise (e.g., `Week1_Colab`).
+2. Save a copy of the notebook to your Google Drive.
+3. Follow the instructions provided within the notebook to complete the exercise.
+
+### Local Setup (Optional)
+
+If you'd like to set up a local environment, follow the steps below.
 
 ### Step 1: Install Python and Virtual Environment
 
@@ -59,7 +67,7 @@ pip install torch torchvision autograd scipy matplotlib
    cd CS427-SMU
    ```
 
-2. Follow the instructions provided in each exercise directory to complete the tasks.
+2. Follow the instructions provided in each exercise directory or the Colab notebook to complete the tasks.
 
 ---
 
