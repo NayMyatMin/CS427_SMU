@@ -12,6 +12,8 @@ import torch.optim as optim
 from torchvision import datasets, transforms
 
 import random
+import math
+import numpy as np
 
 class CIFAR10Net(nn.Module):
     def __init__(self):
@@ -89,20 +91,62 @@ def test(model, dataloader, loss_fn, device):
     print('Test Error: \n Accuracy: {:.2f}%, Avg loss: {:.4f}'.format(100 * correct, loss))
 
 
-def attack(model, dataloader, loss_fn, device):
-    size = 10000
+def compute_mentr(pred, y):
+    pred, y = pred.numpy(), y.numpy()
+    mentr = []
+
+    for i in range(len(y)):
+        val = 0.0
+        for j in range(len(pred[i])):
+            if j == y[i]:
+                val -= (1 - pred[i][j]) * math.log(pred[i][j])
+            elif pred[i][j] < 1:
+                val -= pred[i][j] * math.log(1 - pred[i][j])
+        mentr.append(val)
+
+    return np.array(mentr)
+
+#The following masks off the confidence except those top three
+def maskoff(pred):
+    for i in range(len(pred)):
+        fst_i, fst_v = -1, -1
+        snd_i, snd_v = -1, -1
+        thr_i, thr_v = -1, -1
+        for j in range(len(pred[i])):
+            if pred[i][j] > fst_v:
+                thr_i, thr_v = snd_i, snd_v
+                snd_i, snd_v = fst_i, fst_v
+                fst_i, fst_v = j, pred[i][j]
+            elif pred[i][j] > snd_v:
+                thr_i, thr_v = snd_i, snd_v
+                snd_i, snd_v = j, pred[i][j]
+            elif pred[i][j] > thr_v:
+                thr_i, thr_v = j, pred[i][j]
+        for j in range(len(pred[i])):
+            if j != fst_i and j != snd_i and j != thr_i:
+                pred[i][j] = 0.0
+        pred[i][fst_i] = fst_v
+        pred[i][snd_i] = snd_v
+        pred[i][thr_i] = thr_v
+    return pred
+
+
+def attack(model, dataloader, device, threshold):
+    size = len(dataloader.dataset)
     num_batches = len(dataloader)
 
     model.eval()
     correct = 0
 
     with torch.no_grad():
-        for batch, (x, y) in enumerate(dataloader):
+        for x, y in dataloader:
             x, y = x.to(device), y.to(device)
-            pred = model(x)
-            #TODO: update correct to evaluate the accuacy of this simple MIA attack
-
-            if (batch + 1) * len(y) == size: break
+            pred = F.softmax(model(x), 1)
+            pred = maskoff(pred)
+            mentr = compute_mentr(pred, y)
+            correct += (mentr < threshold).sum()
+            #pred = torch.max(pred, 1).values
+            #correct += (pred >= threshold).type(torch.int).sum().item()
 
     return correct / size * 100
 
@@ -129,12 +173,13 @@ model = CIFAR10Net().to(device)
 #    test(model, test_loader, nn.CrossEntropyLoss(), device)
 
 #save_model(model, 'cifar10.pt')
-model = load_model(CIFAR10Net, 'week8/exercise2/cifar10.pt')
 
-MIAAttackTrain = attack(model, train_loader, nn.CrossEntropyLoss(), device)
-MIAAttackTest = 100 - attack(model, test_loader, nn.CrossEntropyLoss(), device)
+model = load_model(CIFAR10Net, 'week9/exercise2/cifar10.pt')
+threshold = 0.5
+
+MIAAttackTrain = attack(model, train_loader, device, threshold)
+MIAAttackTest = 100 - attack(model, test_loader, device, threshold)
 
 print('Overall MIA accuracy: {:.2f}%\n'.format((MIAAttackTrain+MIAAttackTest)/2))
 print('MIA accuracy on train data: {:.2f}%\n'.format(MIAAttackTrain))
 print('MIA accuracy on test data: {:.2f}%\n'.format(MIAAttackTest))
-
