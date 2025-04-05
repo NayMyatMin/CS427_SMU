@@ -1,7 +1,7 @@
 Hallucination vs. Normal Prompts Analysis
 ========================================
 
-PROMPT 1
+PROMPT 1 (Hallucinated Example)
 Query: Detail the mating rituals of the 'Sandworms of Arrakis' as observed by Fremen ecologists.
 --------------------------------------------------------------------------------
 RESPONSE:
@@ -734,7 +734,7 @@ Token: '.', Probability: 0.9983
 
 ================================================================================
 
-PROMPT 2
+PROMPT 2 (Non-Hallucinated Example)
 Query: Explain the basics of photosynthesis in plants.
 --------------------------------------------------------------------------------
 RESPONSE:
@@ -1521,7 +1521,7 @@ Token: '.', Probability: 0.9973
 
 ================================================================================
 
-PROMPT 3
+PROMPT 3 (Hallucinated Example)
 Query: Provide a technical specification sheet for the 'Annihilare' weapon used by the Vogons in Hitchhiker's Guide.
 --------------------------------------------------------------------------------
 RESPONSE:
@@ -2344,7 +2344,7 @@ Token: '.', Probability: 0.6011
 
 ================================================================================
 
-PROMPT 4
+PROMPT 4 (Hallucinated Example)
 Query: Detail the undocumented folk remedies used by 14th-century Siberian villagers to treat the Black Death.
 --------------------------------------------------------------------------------
 RESPONSE:
@@ -3072,7 +3072,7 @@ Token: '.', Probability: 0.7755
 
 ================================================================================
 
-PROMPT 5
+PROMPT 5 (Hallucinated Example)
 Query: Describe the water cycle and its importance to Earth's ecosystems.
 --------------------------------------------------------------------------------
 RESPONSE:
@@ -3725,7 +3725,7 @@ Token: '.', Probability: 0.9992
 
 ================================================================================
 
-PROMPT 6
+PROMPT 6 (Non-Hallucinated Example)
 Query: Describe the process of evolution by natural selection.
 --------------------------------------------------------------------------------
 RESPONSE:
@@ -4211,7 +4211,7 @@ Token: '.', Probability: 0.9994
 
 ================================================================================
 
-PROMPT 7
+PROMPT 7 (Hallucinated Example)
 Query: Detail the curriculum changes in schools after telepathic communication became widespread in 2040.
 --------------------------------------------------------------------------------
 RESPONSE:
@@ -5096,7 +5096,7 @@ Token: '.', Probability: 0.8228
 
 ================================================================================
 
-PROMPT 8
+PROMPT 8 (Hallucinated Example)
 Query: Summarize the plot of Shakespeare's play 'Romeo and Juliet'.
 --------------------------------------------------------------------------------
 RESPONSE:
@@ -5459,7 +5459,7 @@ Token: '.', Probability: 0.9997
 
 ================================================================================
 
-PROMPT 9
+PROMPT 9 (Non-Hallucinated Example)
 Query: Explain the basic principles of Mendelian genetics.
 --------------------------------------------------------------------------------
 RESPONSE:
@@ -6044,7 +6044,7 @@ Token: '.', Probability: 0.7783
 
 ================================================================================
 
-PROMPT 10
+PROMPT 10 (Non-Hallucinated Example)
 Query: Detail the evolutionary path that led to humans having naturally occurring wheels
 --------------------------------------------------------------------------------
 RESPONSE:
